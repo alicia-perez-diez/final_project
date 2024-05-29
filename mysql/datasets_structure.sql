@@ -1,7 +1,8 @@
 USE final_project;
 
 DROP TABLE IF EXISTS accident;   
-CREATE TABLE final_project.accident (
+CREATE TABLE accident (
+		ID INT,
         ST_CASE INT PRIMARY KEY,
         YEAR INT,
         MONTH INT,
@@ -9,8 +10,8 @@ CREATE TABLE final_project.accident (
         DAY_WEEK INT,
         HOUR INT,
         MINUTE INT,
-        LATITUDE INT,
-        LONGITUD INT,
+        LATITUDE FLOAT,
+        LONGITUD FLOAT,
         STATE INT,
         STATENAME VARCHAR(50),
         COUNTY INT,
