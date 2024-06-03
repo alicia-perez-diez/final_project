@@ -4,3 +4,12 @@ pandas = 2.2.1
 mysql-connector-python = 8.3.0
 sqlalchemy = 2.0.30
 gdown = 5.2.0
+
+# Importa las tablas limpias para el modelo predictivo
+python-dotenv = 1.0.1
+
+# Unión tablas para modelo predictivo
+dask = 2024.5.2
+dask-core = 2024.5.2
+dask-expr = 1.1.2 
+pyarrow = 16.1.0
