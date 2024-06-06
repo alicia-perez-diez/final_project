@@ -8,7 +8,7 @@ Análisis y modelo predictivo de los accidentes de tráfico fatales ocurridos en
 
 Puedes ver la presentación de mi  proyecto en el siguiente <a href="https://docs.google.com/presentation/d/1AKr2wNU-6pMedlli2poKJx5BKxoEVtAbk5RP1vD4Xw8/edit?usp=sharing">enlace.</a>
 
-Y el enlace al ERD <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny_project_ERD?type=design&mode=design">aquí.</a>
+Y el enlace al ERD <a href="https://docs.google.com/presentation/d/1WEghHFbpD1ldkTyGZPo3oXcFeZM19uF5/edit?usp=sharing">enlace.</a>
 
 ## Tabla de contenidos
 
@@ -23,9 +23,7 @@ Y el enlace al ERD <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny
 - Última modificación: 07/06/2024.
 - Fuente de datos:
 
-    <a href= "https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data">NY City Airbnb Open Data.</a>
-
-    <a href= "https://www.kaggle.com/datasets/mrmorj/new-york-city-police-crime-data-historic">NY City Police Crime Data Historic.</a>
+    <a href= "https://www.nhtsa.gov/file-downloads?p=nhtsa/downloads/FARS/2022/National/">United States Department of Transportation (NHTSA).</a>
 
 ## Estructura del análisis
 
