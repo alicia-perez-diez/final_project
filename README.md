@@ -6,7 +6,7 @@ Análisis y modelo predictivo de los accidentes de tráfico fatales ocurridos en
 
 ¡Hola, analista o curioso de los datos! 📈 Soy Alicia, estudiante de análisis de datos de Ironhack. En este notebook, que representa mi proyecto final, encontrarás un análisis detallado de los accidentes con al menos una muerte que tuvieron lugar en 2022 en Estados Unidos y un modelo predictivo que predice con un alto nivel de precisión el número de muertes que habrá en las 8 semanas siguientes en cada uno de los estados.
 
-Puedes ver la presentación de mi  proyecto en el siguiente <a href="https://docs.google.com/presentation/d/1J1fhvyMUTCwz9pd95SF15E0Hx8h2ffkpOmX9drjAv_I/edit?usp=sharing">enlace.</a>
+Puedes ver la presentación de mi  proyecto en el siguiente <a href="https://docs.google.com/presentation/d/1AKr2wNU-6pMedlli2poKJx5BKxoEVtAbk5RP1vD4Xw8/edit?usp=sharing">enlace.</a>
 
 Y el enlace al ERD <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny_project_ERD?type=design&mode=design">aquí.</a>
 
@@ -35,24 +35,19 @@ Y el enlace al ERD <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny
 - Agrupación final, análisis estadístico y visualización gráfica con PowerBI.
 - Desarrollo del ABT, PCA y modelo de predicción con Python.
 
-## 📊 Insights visuales
+## 📊 Insights visuales data analysis
 
-![Correlation Heatmap](https://drive.google.com/uc?export=view&id=1dAf6f0uyVGJLgKJBIuusFNsUtUXbvc40)
+Los gráficos de este análisis se han generado en PowerBI. Puedes ver el dashboard a través del siguiente <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny_project_ERD?type=design&mode=design">enlace.</a>
 
-Mapa de correlación entre todas las variables numéricas.
+## 📊 Insights visuales modelo de predicción
 
-![Promedio de crímenes por barrio](https://drive.google.com/uc?export=view&id=1yjVbCoeo6RKNqgX_NYTr7-fwPyyY_0EZ)
+![Time series for 1 random state](https://drive.google.com/uc?export=view&id=1dAf6f0uyVGJLgKJBIuusFNsUtUXbvc40)
 
-Promedio de crímenes por barrio.
+Serie de tiempo para 1 estado seleccionado al azar.
 
-![Promedio de crímenes por barrio](https://drive.google.com/uc?export=view&id=1wh6J-3ZUOC5Ny7XH9tzzsLkD543zQJEy)
+![Features importance](https://drive.google.com/uc?export=view&id=1DIG-oZtVGaTHg0E8w5Q-qp8SMmObcASZ)
 
-Promedio de crímenes por gravedad de infracción por barrio.
+Importancia de las variables. Ma8 es el promedio de las últimas 8 semanas.
 
-![Promedio de precio y reviews por barrio](https://drive.google.com/uc?export=view&id=1b0bOkmGtSkf8Olh_BMCgwKFiRmqEEYE7)
-
-![Relación entre el precio y el número de reviews por barrio](https://drive.google.com/uc?export=view&id=1xNtwFXSffSLgFQEgKpWDYRLw96Jp5N-O)
-
-Relación entre el precio y el número de reviews por barrio.
 
 ¡Gracias por leerme 😊!

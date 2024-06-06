@@ -1,8 +1,8 @@
 def get_database_connection():
     """
     Obtiene los datos de conexión a MySQL desde un archivo .env y crea la conexión a la base de datos.
-    Input: Ninguno.
-    Output: Objeto engine de SQLAlchemy con la conexión a la base de datos.
+    Args: Ninguno.
+    Returns: Objeto engine de SQLAlchemy con la conexión a la base de datos.
     """
 
     import os
@@ -25,8 +25,8 @@ def get_database_connection():
 def configure_pandas_display():
     """
     Configura pandas para que se muestren todas las columnas de los dataframes.
-    Input: Ninguno.
-    Output: Ninguno.
+    Args: Ninguno.
+    Returns: Ninguno.
     """
 
     import pandas as pd
@@ -37,8 +37,8 @@ def configure_pandas_display():
 def load_table_from_mysql(engine, table_name):
     """
     Importa una tabla limpia de MySQL a un DataFrame de pandas.
-    Input: engine (objeto de conexión a la base de datos), table_name (nombre de la tabla a importar).
-    Output: DataFrame de pandas con los datos de la tabla.
+    Args: engine (objeto de conexión a la base de datos), table_name (nombre de la tabla a importar).
+    Returns: DataFrame de pandas con los datos de la tabla.
     """
 
     import pandas as pd
@@ -49,8 +49,8 @@ def load_table_from_mysql(engine, table_name):
 def load_all_tables(engine):
     """
     Importa todas las tablas necesarias de la base de datos MySQL.
-    Input: engine (objeto de conexión a la base de datos).
-    Output: Diccionario con los nombres de las tablas como claves y los DataFrames como valores.
+    Args: engine (objeto de conexión a la base de datos).
+    Returns: Diccionario con los nombres de las tablas como claves y los DataFrames como valores.
     """
     tables = ['accident', 'distract', 'drugs', 'maneuver', 'person', 'vehicle', 'weather']
     
@@ -64,8 +64,8 @@ def load_all_tables(engine):
 def preprocess_tables(accident, distract, drugs, maneuver, person, vehicle, weather):
     """
     Preprocesa todas las tablas para convertir cada accidente en una sola línea en cada tabla.
-    Input: DataFrames: accident, distract, drugs, maneuver, person, vehicle y weather.
-    Output: DataFrames editados: accident, distract, drugs, maneuver, person, vehicle y weather. 
+    Args: DataFrames: accident, distract, drugs, maneuver, person, vehicle y weather.
+    Returns: DataFrames editados: accident, distract, drugs, maneuver, person, vehicle y weather. 
     """
 
     import pandas as pd
@@ -361,8 +361,8 @@ def preprocess_tables(accident, distract, drugs, maneuver, person, vehicle, weat
 def combine_tables(accident, distract, drugs, maneuver, person, vehicle, weather):
     """
     Combina las tablas preprocesadas en una sola: accident.
-    Input: Los DataFrames preprocesados: accident, distract, drugs, maneuver, person, vehicle, weather
-    Output: abt: DataFrame combinado con todos los datos relevantes. 
+    Args: Los DataFrames preprocesados: accident, distract, drugs, maneuver, person, vehicle, weather
+    Returns: abt: DataFrame combinado con todos los datos relevantes. 
     """
 
     import pandas as pd
@@ -433,8 +433,8 @@ def plot_correlation_heatmap(abt):
     Calcula el índice de correlación entre todas las variables numéricas para observar las correlaciones existentes y crea un mapa de calor con todas las variables numéricas\
         para detectar las variables correlacionadas.
     
-    Input: abt: DataFrame con todas las variables numéricas.
-    Output: None (muestra el gráfico del mapa de calor).    
+    Args: abt: DataFrame con todas las variables numéricas.
+    Returns: None (muestra el gráfico del mapa de calor).    
     """
 
     import numpy as np
@@ -452,4 +452,445 @@ def plot_correlation_heatmap(abt):
     plt.title('Correlation Heatmap')
 
     #Muestra el mapa de calor
+    plt.show()
+
+def apply_pca_and_update_df(abt):
+    """
+    Aplica PCA a varios grupos de columnas predefinidas en el DataFrame y actualiza el DataFrame
+    eliminando las columnas originales y agregando los nuevos componentes PCA.
+
+    Args: abt, DataFrame original que contiene los datos.
+
+    Returns: pd.DataFrame: DataFrame actualizado con los componentes PCA añadidos y 
+    las columnas originales eliminadas.
+    """
+
+    import pandas as pd
+    from sklearn.decomposition import PCA
+
+    # Selecciona todas las columnas que están altamente correlacionadas entre sí y que hacen referencia a la posición de los pasajeros en los vehículos 'Seat_xxx'
+    seat_position_columns_to_pca = ['Seat_Back', 'Seat_Back_Left', 'Seat_Back_Middle', 'Seat_Back_Right', 'Seat_Front', 'Seat_Front_Left', 'Seat_Front_Middle', 'Seat_Front_Right', 'Seat_Not_Regular_Vehicle']
+
+    # Ejecuta el PCA para mantener el 80% de los datos de las 9 columnas originales
+    pca = PCA(n_components=0.8)  # Número de componentes a mantener
+    pca_result = pca.fit_transform(abt[seat_position_columns_to_pca])
+
+    # Crea el nuevo dataframe eliminando las columnas antiguas y agregando las nuevas y lo guarda en 'abt_pca'
+    pca_columns = [f'Seat_pca {i+1}' for i in range(pca_result.shape[1])]
+    pca_df = pd.DataFrame(data=pca_result, columns=pca_columns)
+
+    abt_pca = abt.drop(columns=seat_position_columns_to_pca)  # Elimina las columnas originales
+
+    abt_pca = pd.concat([abt_pca, pca_df], axis=1)  # Añade las columnas del PCA
+
+    # Selecciona todas las columnas que están altamente correlacionadas entre sí y que hacen referencia al tipo de persona involucrada en el accidente
+    type_of_person_columns_to_pca = ['Bicyclist', 'Similar_To_Bicyclist', 'Driver', 'Occupant_Parked_Vehicle', 'Passenger', 'Pedestrian', 'Person_In_A_Building']
+
+    # Ejecuta el PCA para mantener el 80% de los datos de las 9 columnas originales
+    pca = PCA(n_components=0.8)  # Número de componentes a mantener
+    pca_result = pca.fit_transform(abt[type_of_person_columns_to_pca])
+
+    # Crea el nuevo dataframe eliminando las columnas antiguas y agregando las nuevas y lo guarda en 'abt_pca'
+    pca_columns = [f'Type_of_Person_pca {i+1}' for i in range(pca_result.shape[1])]
+    pca_df = pd.DataFrame(data=pca_result, columns=pca_columns)
+
+    abt_pca = abt_pca.drop(columns=type_of_person_columns_to_pca)  # Elimina las columnas originales
+    abt_pca = pd.concat([abt_pca, pca_df], axis=1)  # Añade las columnas del PCA
+
+    # Selecciona todas las columnas que están altamente correlacionadas entre sí y que hacen referencia a la hora de notificación, llegada de servicios de emergencia y llegada al hospital
+    response_hours_columns_to_pca = ['Not_Hour', 'Arr_Hour', 'Hosp_Hour']
+
+    # Ejecuta el PCA para mantener el 80% de los datos de las 9 columnas originales
+    pca = PCA(n_components=0.8)  # Número de componentes a mantener
+    pca_result = pca.fit_transform(abt[response_hours_columns_to_pca])
+
+    # Crea el nuevo dataframe eliminando las columnas antiguas y agregando las nuevas y lo guarda en 'abt_pca'
+    pca_columns = [f'Response_Hours_pca {i+1}' for i in range(pca_result.shape[1])]
+    pca_df = pd.DataFrame(data=pca_result, columns=pca_columns)
+
+    abt_pca = abt_pca.drop(columns=response_hours_columns_to_pca)  # Elimina las columnas originales
+    abt_pca = pd.concat([abt_pca, pca_df], axis=1)  # Añade las columnas del PCA
+
+    # Selecciona todas las columnas que están altamente correlacionadas entre sí y que hacen referencia al minuto de notificación, llegada de servicios de emergencia y llegada al hospital
+    response_mins_columns_to_pca = ['Not_Min', 'Arr_Min', 'Hosp_Min']
+
+    # Ejecuta el PCA para mantener el 80% de los datos de las 9 columnas originales
+    pca = PCA(n_components=0.8)  # Número de componentes a mantener
+    pca_result = pca.fit_transform(abt[response_mins_columns_to_pca])
+
+    # Crea el nuevo dataframe eliminando las columnas antiguas y agregando las nuevas y lo guarda en 'abt_pca'
+    pca_columns = [f'Response_Mins_pca {i+1}' for i in range(pca_result.shape[1])]
+    pca_df = pd.DataFrame(data=pca_result, columns=pca_columns)
+
+    abt_pca = abt_pca.drop(columns=response_mins_columns_to_pca)  # Elimina las columnas originales
+    abt_pca = pd.concat([abt_pca, pca_df], axis=1)  # Añade las columnas del PCA
+
+    # Selecciona todas las columnas que están altamente correlacionadas entre sí y que hacen referencia al tipo de accidente
+    accident_columns_to_pca = ['Acc_Avoid_Collision_Obj', 'Acc_Avoid_Collision_Ped_or_Anim', 'Acc_Avoid_Collision_Veh', 'Acc_Avoid_Collision_Veh', 'Acc_Backing_Veh',\
+                        'Acc_Changing_Lanes_to_Left', 'Acc_Changing_Lanes_to_Right', 'Acc_Control_Loss', 'Acc_Decelerating', 'Acc_Decelerating_to_Left',\
+                        'Acc_Decelerating_to_Right', 'Acc_Decelerating_to_Straight', 'Acc_Drive_Off_Road', 'Acc_End_Departure', 'Acc_Opposite_Dir_to_Straight',\
+                        'Acc_Opposite_Dir_to_Left_or_Right', 'Acc_Same_Dir_to_Straight', 'Acc_Same_Dir_to_Left', 'Acc_Same_Dir_to_Right', 'Acc_Lateral_Move_to_Straight',\
+                        'Acc_Lateral_Move_to_Left_or_Right', 'Acc_No_Impact', 'Acc_Other_Crash', 'Acc_Other_Veh', 'Acc_Parked_Veh', 'Acc_Ped_or_Animal', 'Acc_Slower',\
+                        'Acc_Slower_to_Left', 'Acc_Slower_to_Right', 'Acc_Slower_to_Straight', 'Acc_Specifics_Other', 'Acc_StaObj', 'Acc_Stopped', 'Acc_Stopped_Ahead_Left',\
+                        'Acc_Stopped_Ahead_Right', 'Acc_Striking_from_Left', 'Acc_Striking_from_Right', 'Acc_Struck_on_Right', 'Acc_Struck_on_Left',\
+                        'Acc_Turn_to_Opposite_Dir_to_Straight', 'Acc_Turn_to_Opposite_Dir_to_Left', 'Acc_Turn_to_Opposite_Dir_to_Right', 'Acc_Turn_to_Same_Dir_to_Straight',\
+                        'Acc_Turn_to_Same_Dir_to_Left', 'Acc_Turn_to_Same_Dir_to_Right']
+
+
+    # Ejecuta el PCA para mantener el 80% de los datos de las 9 columnas originales
+    pca = PCA(n_components=0.8)  # Número de componentes a mantener
+    pca_result = pca.fit_transform(abt[accident_columns_to_pca])
+
+    # Crea el nuevo dataframe eliminando las columnas antiguas y agregando las nuevas y lo guarda en 'abt_pca'
+    pca_columns = [f'Acc_pca {i+1}' for i in range(pca_result.shape[1])]
+    pca_df = pd.DataFrame(data=pca_result, columns=pca_columns)
+
+    abt_pca = abt_pca.drop(columns=accident_columns_to_pca)  # Elimina las columnas originales
+    abt_pca = pd.concat([abt_pca, pca_df], axis=1)  # Añade las columnas del PCA
+
+    # Elimina una de las dos columnas correlacionadas y se queda con Total_Veh, Persons, Urban y Veh_TruckTractor
+    columns_to_drop = ['Hit_Run_No', 'Persons_in_Veh', 'Rural', "14,969 kg and above"]
+    abt_pca = abt_pca.drop(columns=columns_to_drop)
+
+    # Elimina las columnas que hacen referencia a fechas que ya no necesito para la nueva predicción
+    abt_pca = abt_pca.drop(columns=['Year', 'Month', 'Day', 'Day_Week', 'Hour', 'Minute', 'Date'])
+
+    # Crea nuevas columnas 'Year', 'Week' en formato número
+    abt_pca['Year'] = abt_pca['Year_Week'].str[:4].astype(int)
+    abt_pca['Week'] = abt_pca['Year_Week'].str[5:7].astype(int)
+
+    # Crea a partir de 'Year' y 'Week' una nueva columna llamada 'Year_Week_dt' y la convierte a tipo fecha
+    abt_pca['Year_Week_dt'] = pd.to_datetime(abt_pca['Year'].astype(str) + abt_pca['Week'].astype(str).str.zfill(2) + '0', format='%Y%W%w')
+
+    return abt_pca
+
+def plot_random_state_time_series(abt_pca):
+    """
+    Crea un gráfico de series temporales de los accidentes fatales para un estado aleatorio.
+
+    Args:
+    - abt_pca (abt_pca): DataFrame que contiene los datos de los accidentes.
+
+    Returns:
+    - matplotlib.figure.Figure: La figura que contiene el gráfico generado.
+    """
+
+    import pandas as pd
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    # Selecciona 3 estados aleatorios sin repetición
+    state = np.random.choice(abt_pca['State'].unique(), 1, replace=False)
+
+    # Crea el gráfico y define el tamaño
+    plt.figure(figsize=(14, 8))
+
+    state_data = abt_pca[abt_pca['State'] == state[0]]  # Filtra los datos del estado actual
+    state_data = state_data.sort_values(by='Year_Week_dt')  # Ordena los datos por 'Year_Week_dt'
+    plt.plot(state_data['Year_Week'], state_data['Fatals'], label=state)  # Crea la gráfica de series temporales para el estado actual
+
+    # Añade etiquetas a los ejes
+    plt.xlabel('Year_Week')
+    plt.ylabel('Fatals')
+
+    # Define el título del gráfico
+    plt.title('Time Series of Fatals for 1 Random State')
+
+    # Define la leyenda con el nombre de cada estado
+    plt.legend(title='State')
+
+    # Rota las etiquetas del eje X para mejorar la legibilidad
+    plt.xticks(rotation=45)
+
+    # Añade una cuadrícula para facilitar la visualización
+    plt.grid(True)
+
+    # Muestra el gráfico
+    plt.show()
+
+def model_summary(abt_pca):
+    """
+    Realiza el entrenamiento, optimización de hiperparámetros y evaluación de un modelo RandomForestRegressor.
+
+    Args:
+    - dataframe 'abt_pca' que contiene los datos de los accidentes'.
+
+    Returns:
+    - dict: Un diccionario que contiene un resumen del modelo, los parámetros óptimos, y las métricas de evaluación (MSE, MAE, R²).
+    """
+
+    from sklearn.model_selection import GridSearchCV
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+    from sklearn.preprocessing import StandardScaler
+    import pandas as pd
+    import numpy as np
+
+    # Define el target y las variables que se analizarán para el modelo predictivo
+    target_column = 'Fatals' 
+    feature_columns = abt_pca.columns.drop(['Year_Week', 'State', 'Year', 'Week', 'Year_Week_dt'])
+    state_column = 'State' 
+
+    # Crea un DataFrame vacío para almacenar los datos filtrados y procesados
+    abt_for_train = pd.DataFrame()
+    
+    # Itera sobre cada estado único en los datos
+    for state_to_analyze in abt_pca.State.unique():
+
+        # Filtra los datos para el estado actual
+        state_df = abt_pca[abt_pca[state_column] == state_to_analyze]
+
+        # Calcula el promedio móvil de 8 semanas para cada característica y añadirlo como una nueva columna
+        for col in feature_columns:
+            state_df[f'{col}_ma8'] = state_df[col].shift(1).rolling(window=8).mean()
+
+        # Elimina las filas con valores NaN creados por el cálculo del promedio móvil
+        state_df.dropna(inplace=True)
+
+        # Concatena los datos filtrados y procesados con el DataFrame general
+        abt_for_train = pd.concat([state_df, abt_for_train], axis=0)
+
+    # Convierte las variables categóricas en variables dummy
+    abt_for_train = pd.get_dummies(abt_for_train, columns=['State'])
+
+    # Extrae el año y la semana de la columna 'Year_Week' y las convierte en formato de fecha
+    abt_for_train['Year'] = abt_for_train['Year_Week'].str[:4].astype(int)
+    abt_for_train['Week'] = abt_for_train['Year_Week'].str[5:].astype(int)
+    abt_for_train['Year_Week_dt'] = pd.to_datetime(abt_for_train['Year'].astype(str) + abt_for_train['Week'].astype(str).str.zfill(2) + '0', format='%Y%W%w')
+
+    # Ordena el DataFrame por fecha
+    abt_for_train = abt_for_train.sort_values(by='Year_Week_dt')
+
+    # Elimina columnas no necesarias para el modelo
+    abt_for_train = abt_for_train.drop(columns=['Year', 'Week', 'Year_Week_dt'])
+
+    # Define las columnas de características y objetivo
+    ma8_columns = [f'{col}_ma8' for col in feature_columns]
+    state_columns = [col for col in abt_for_train.columns if col.strip().startswith('State')]
+    selected_columns = ma8_columns + state_columns
+
+    # Crea X e y para el modelo
+    X = abt_for_train[selected_columns]
+    y = abt_for_train[target_column]
+
+    # Divide los datos en conjuntos de entrenamiento y prueba
+    train_size = int(len(X) * 0.7)
+    X_train, X_test = X.iloc[:train_size], X.iloc[train_size:]
+    y_train, y_test = y.iloc[:train_size], y.iloc[train_size:]
+
+    # Escala los datos de características
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    X_scaled_df = pd.DataFrame(X_scaled, columns=selected_columns)
+    train_size = int(len(X) * 0.7)
+    X_train, X_test = X_scaled_df.iloc[:train_size], X_scaled_df.iloc[train_size:]
+    y_train, y_test = y.iloc[:train_size], y.iloc[train_size:]
+
+    # Entrena el modelo RandomForestRegressor original
+    model = RandomForestRegressor(n_estimators=15, max_depth=20)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+    # Calcula las métricas para el modelo original
+    mse = mean_squared_error(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+
+    # Define el espacio de búsqueda de hiperparámetros para GridSearchCV
+    param_grid = {
+        'n_estimators': [5, 10, 15, 20, 25, 30],
+        'max_features': ['auto', 'sqrt', 'log2'],
+        'max_depth': [10, 20, 30, None],
+        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 4]
+    }
+
+    # Realiza la búsqueda de hiperparámetros
+    grid_search = GridSearchCV(estimator=RandomForestRegressor(), param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
+    grid_search.fit(X_train, y_train)
+    best_model = grid_search.best_estimator_
+
+    # Realiza predicciones con el mejor modelo optimizado
+    y_pred = best_model.predict(X_test)
+
+    # Calcula las métricas para el modelo optimizado
+    mse_optimized = mean_squared_error(y_test, y_pred)
+    mae_optimized = mean_absolute_error(y_test, y_pred)
+    r2_optimized = r2_score(y_test, y_pred)
+
+    # Prepara los datos para el gráfico de importancia de las variables
+    # Calcula la importancia de las características
+    feature_importances = best_model.feature_importances_
+    
+    # Crea un DataFrame con la importancia de las características
+    feature_importances_df = pd.DataFrame({'Feature': selected_columns, 'Importance': feature_importances})
+
+    # Crea un diccionario con el resumen del modelo
+    model_summary_result = {
+        'Model': 'RandomForestRegressor',
+        'Original Model MSE': mse,
+        'Original Model MAE': mae,
+        'Original Model R²': r2,
+        'Optimized Model MSE': mse_optimized,
+        'Optimized Model MAE': mae_optimized,
+        'Optimized Model R²': r2_optimized,
+        'Optimized Parameters': grid_search.best_params_
+    }
+
+    return abt_for_train, best_model, model_summary_result, scaler, feature_columns, selected_columns, feature_importances_df
+
+def make_predictions_and_export(abt_for_train, best_model, scaler, feature_columns, selected_columns):
+    """
+    Realiza predicciones para las próximas 8 semanas y exporta el resultado a un archivo CSV.
+
+    Args:
+    - abt_for_train (pd.DataFrame): DataFrame que contiene los datos de entrenamiento y predicciones.
+    - best_model: Modelo optimizado para realizar predicciones.
+    - scaler: Escalador utilizado para normalizar características.
+
+    Returns:
+    - str: Ruta del archivo CSV exportado.
+    """
+
+    import pandas as pd
+    import os
+    from datetime import timedelta 
+
+    total_final_predictions = pd.DataFrame()  # Crea un DataFrame vacío para almacenar todas las predicciones
+    
+    # Accede a las columnas de estado directamente desde abt_for_train
+    state_columns = [col for col in abt_for_train.columns if col.strip().startswith('State')]  # Genera una lista de columnas de estado
+
+    # Itera sobre cada columna de estado
+    for state_col in state_columns:
+
+        state = state_col.split('_')[1]  # Extrae el nombre del estado
+        
+        # Filtra los datos por estado
+        state_data = abt_for_train[abt_for_train[state_col] == True]
+        state_data['Year'] = state_data['Year_Week'].str[:4].astype(int)
+        state_data['Week'] = state_data['Year_Week'].str[5:7].astype(int)
+        state_data['Year_Week_dt'] = pd.to_datetime(state_data['Year'].astype(str) + state_data['Week'].astype(str).str.zfill(2) + '0', format='%Y%W%w')
+        last_date = state_data['Year_Week_dt'].max()  # Obtiene la última fecha registrada
+        
+        # Itera sobre las próximas 8 semanas
+        for i in range(1, 9):
+            # Crea un dataframe para almacenar las predicciones futuras
+            future_predictions_2 = pd.DataFrame()
+
+            # La fecha de la semana a predecir
+            next_week_date = last_date + timedelta(weeks=i)
+
+            # Crea un nuevo registro para la próxima semana
+            new_record = {}
+
+            # Añade el promedio móvil de 8 semanas para cada característica
+            for col in feature_columns:
+                new_record[f'{col}_ma8'] = state_data[col].shift(1).rolling(window=8).mean().iloc[-1]
+
+            # Añade las columnas de estado binario
+            for col in state_columns:
+                new_record[col] = 1 if col == state_col else 0
+
+            # Añade la fecha de la semana
+            new_record['Year_Week_dt'] = next_week_date
+
+            # Convierte el registro en dataframe y lo añade al dataframe del estado
+            new_record_df = pd.DataFrame([new_record])
+            state_data_temp = pd.concat([state_data, new_record_df], ignore_index=True)
+
+            # Escala las características (utiliza scaler entrenado anteriormente)
+            scaled_features = scaler.transform(state_data_temp[selected_columns].iloc[-1:].values)
+
+            # Realiza la predicción
+            prediction = best_model.predict(scaled_features)
+
+            # Añade la predicción al nuevo registro
+            new_record['Prediction'] = prediction[0]
+
+            # Añade la predicción a las predicciones futuras
+            future_predictions_2 = pd.concat([future_predictions_2, pd.DataFrame([new_record])])
+
+            future_predictions_2.columns = future_predictions_2.columns.str.replace('_ma8', '')
+
+            abt_for_artificial_predictions = pd.concat([state_data, future_predictions_2])
+
+            abt_for_artificial_predictions['Year_Week'] = abt_for_artificial_predictions['Year_Week_dt'].dt.isocalendar().year.astype(str) + '_' + abt_for_artificial_predictions['Year_Week_dt'].dt.isocalendar().week.astype(str).str.zfill(2)
+
+            abt_for_artificial_predictions['State'] = state[0]
+
+            abt_for_artificial_predictions = abt_for_artificial_predictions.fillna(0)
+
+            state_data = abt_for_artificial_predictions
+
+        total_final_predictions = pd.concat([state_data, total_final_predictions], axis=0)
+
+    # Accede a las columnas de estado directamente desde abt_for_train
+    state_columns = total_final_predictions.columns[321:372]  # Selecciona las columnas de estado del DataFrame de predicciones
+    
+    # Crea una nueva columna con el estado predicho
+    total_final_predictions['State'] = total_final_predictions[state_columns].idxmax(axis=1)
+    
+    # Modifica el nombre de los estados, eliminando State_
+    total_final_predictions['State'] = total_final_predictions.State.str.replace('State_', '')
+    
+    # Cuando la Predicción es mayor que 0, Fatals se modifica a 0
+    total_final_predictions.loc[total_final_predictions['Prediction'] > 0, 'Fatals'] = 0
+    
+    # Selecciona solo las columnas necesarias para la exportación
+    total_final_predictions = total_final_predictions[['Year_Week', 'State', 'Fatals', 'Prediction']]
+    
+    # Exporta el dataframe de predicciones a un archivo CSV
+    
+    # Obtiene la ruta absoluta del directorio base del proyecto
+    project_root = os.path.abspath(os.path.join(os.getcwd(), '../../'))
+    
+    # Define el directorio donde se guarda el archivo CSV
+    dataout_directory = os.path.join(project_root, 'final_project', 'data', 'dataout')
+    
+    # Asegura que el directorio existe y, si no, lo crea
+    os.makedirs(dataout_directory, exist_ok=True)
+    
+    # Define la ruta completa del archivo CSV
+    file_path = os.path.join(dataout_directory, 'total_final_predictions.csv')
+    
+    # Exporta el dataframe a un archivo CSV
+    total_final_predictions.to_csv(file_path, index=False)
+    
+    print(f'Dataframe successfully exported to {file_path}')  # Imprime un mensaje de éxito
+    
+    return file_path  # Devuelve la ruta del archivo CSV exportado
+
+def plot_feature_importance(feature_importances_df, top_n=30):
+    """
+    Genera un gráfico de barras con la importancia de las variables del modelo.
+
+    Args:
+    - best_model: Modelo entrenado que proporciona la importancia de las variables.
+    - abt_for_train (pd.DataFrame): DataFrame que contiene los datos de entrenamiento y predicciones.
+    - top_n (int): Número de características principales a mostrar en el gráfico. Por defecto es 30.
+
+    Returns:
+    - None (muestra el gráfico con las 'top_n' variables más impotantes para la predicción de muertes en accidentes fatales)
+    """
+
+    import pandas as pd
+    import matplotlib.pyplot as plt
+
+    # Ordena el DataFrame por la columna 'Importance' de mayor a menor
+    sorted_df = feature_importances_df.sort_values(by='Importance', ascending=False)
+
+    # Excluye las columnas que son de estados o contienen 'Fatals'
+    non_state_or_fatals_columns = sorted_df[~sorted_df['Feature'].str.startswith('State_') & ~sorted_df['Feature'].str.contains('Fatals')]
+
+    # Selecciona los primeros 30 Features excluyendo los estados y 'Fatals'
+    top_30_non_state_or_fatals_df = non_state_or_fatals_columns.head(30)
+    
+    # Crea el gráfico de barras
+    plt.figure(figsize=(10, 8))
+    plt.barh(top_30_non_state_or_fatals_df['Feature'], top_30_non_state_or_fatals_df['Importance'], color='skyblue')
+    plt.xlabel('Importance')
+    plt.ylabel('Feature')
+    plt.title('Top 30 Features by Importance (Excluding States and Fatals)')
+    plt.gca().invert_yaxis()  # Invertir el eje y para que el Feature con mayor Importance esté arriba
     plt.show()
