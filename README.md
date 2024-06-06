@@ -39,4 +39,20 @@ Y el enlace al ERD <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny
 
 ![Correlation Heatmap](https://drive.google.com/uc?export=view&id=1dAf6f0uyVGJLgKJBIuusFNsUtUXbvc40)
 
+Mapa de correlación entre todas las variables numéricas.
+
+![Promedio de crímenes por barrio](https://drive.google.com/uc?export=view&id=1yjVbCoeo6RKNqgX_NYTr7-fwPyyY_0EZ)
+
+Promedio de crímenes por barrio.
+
+![Promedio de crímenes por barrio](https://drive.google.com/uc?export=view&id=1wh6J-3ZUOC5Ny7XH9tzzsLkD543zQJEy)
+
+Promedio de crímenes por gravedad de infracción por barrio.
+
+![Promedio de precio y reviews por barrio](https://drive.google.com/uc?export=view&id=1b0bOkmGtSkf8Olh_BMCgwKFiRmqEEYE7)
+
+![Relación entre el precio y el número de reviews por barrio](https://drive.google.com/uc?export=view&id=1xNtwFXSffSLgFQEgKpWDYRLw96Jp5N-O)
+
+Relación entre el precio y el número de reviews por barrio.
+
 ¡Gracias por leerme 😊!

@@ -2,7 +2,8 @@
 import pandas as pd
 
 #importamos el archivo de funciones
-from functions import configure_pandas_display, get_database_connection, load_all_tables, preprocess_tables, combine_tables, plot_correlation_heatmap
+from functions import configure_pandas_display, get_database_connection, load_all_tables, preprocess_tables, combine_tables
+"""plot_correlation_heatmap"""
 
 # Configura la visualización de pandas para mostrar todas las columnas de las tablas
 configure_pandas_display()
@@ -29,4 +30,6 @@ accident, distract, drugs, maneuver, person, vehicle, weather = preprocess_table
 abt = combine_tables(accident, distract, drugs, maneuver, person, vehicle, weather)
 
 # Muestra el mapa de calor con todas las variables numéricas para detectar qué variables están correlacionadas
-plot_correlation_heatmap(abt)
+# Línea de código comentada, ya que procesa muchos datos. Descomentar para visualizar el mapa de correlación 
+"""plot_correlation_heatmap(abt)"""
+
