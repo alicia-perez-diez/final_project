@@ -39,7 +39,7 @@ Los gráficos de este análisis se han generado en PowerBI. Puedes ver el dashbo
 
 ## 📊 Insights visuales modelo de predicción
 
-![Time series for 1 random state](https://drive.google.com/uc?export=view&id=1dAf6f0uyVGJLgKJBIuusFNsUtUXbvc40)
+![Time series for 1 random state](https://drive.google.com/uc?export=view&id=1_3nYQxFsc6YUbA4D_e4ykrMIoVvEMPhW)
 
 Serie de tiempo para 1 estado seleccionado al azar.
 
