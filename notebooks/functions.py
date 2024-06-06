@@ -810,19 +810,26 @@ def make_predictions_and_export(abt_for_train, best_model, scaler, feature_colum
 
             # Añade la predicción a las predicciones futuras
             future_predictions_2 = pd.concat([future_predictions_2, pd.DataFrame([new_record])])
-
+            
+            # Quita el sufijo '_ma8' de los nombres de las columnas en future_predictions_2.
             future_predictions_2.columns = future_predictions_2.columns.str.replace('_ma8', '')
 
+            # Concatena state_data con future_predictions_2 para crear abt_for_artificial_predictions
             abt_for_artificial_predictions = pd.concat([state_data, future_predictions_2])
 
+            # Actualiza la columna 'Year_Week' en abt_for_artificial_predictions con el nuevo formato de año y semana.    
             abt_for_artificial_predictions['Year_Week'] = abt_for_artificial_predictions['Year_Week_dt'].dt.isocalendar().year.astype(str) + '_' + abt_for_artificial_predictions['Year_Week_dt'].dt.isocalendar().week.astype(str).str.zfill(2)
 
+            # Asigna el nombre del estado a la columna 'State' en abt_for_artificial_predictions
             abt_for_artificial_predictions['State'] = state[0]
 
+            # Rellena los valores NaN en abt_for_artificial_predictions con 0
             abt_for_artificial_predictions = abt_for_artificial_predictions.fillna(0)
 
+            # Actualiza state_data con abt_for_artificial_predictions para la próxima iteración
             state_data = abt_for_artificial_predictions
-
+        
+        # Añade state_data a total_final_predictions para combinar las predicciones de todos los estados.
         total_final_predictions = pd.concat([state_data, total_final_predictions], axis=0)
 
     # Accede a las columnas de estado directamente desde abt_for_train
