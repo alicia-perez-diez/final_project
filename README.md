@@ -55,6 +55,6 @@ The prediction graph shows a clear trend in traffic accident fatalities in 2022,
 
 Detailed information about the project at the following <a href="https://docs.google.com/presentation/d/1AKr2wNU-6pMedlli2poKJx5BKxoEVtAbk5RP1vD4Xw8/edit?usp=sharing">link</a>.
 
-Link to the ERD <a href="https://docs.google.com/presentation/d/1WEghHFbpD1ldkTyGZPo3oXcFeZM19uF5/edit?usp=sharing">here</a>.
+Link to the ERD <a href="https://drive.google.com/file/d/1WEghHFbpD1ldkTyGZPo3oXcFeZM19uF5/view?usp=drive_link">here</a>.
 
 Thanks for reading 😊!
