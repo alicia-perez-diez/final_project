@@ -31,7 +31,7 @@ Hello, data analyst or curious reader! 📈 I'm Alicia, a data analysis student 
 
 ![PowerBI dashboard](https://github.com/alicia-perez-diez/final_project/blob/main/images/dashboard.gif)
 
-Download the PowerBI dashboard via this <a href="(https://drive.google.com/file/d/1tNa_nt9-yHBv2XsX27upeD5dxSDrV-nV/view?usp=drive_link)">link</a>.
+Download the PowerBI dashboard via this <a href="https://drive.google.com/file/d/1tNa_nt9-yHBv2XsX27upeD5dxSDrV-nV/view?usp=drive_link">link</a>.
 
 ## 📊 Visual Insights: Predictive Model
 
