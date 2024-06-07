@@ -39,6 +39,8 @@ Download the PowerBI dashboard via this <a href="https://drive.google.com/file/d
 
 This heatmap shows possible correlations between variables, highlighting significant correlations between seat position, person type, response times, and the type of accident causing fatalities. This underscores the need to perform PCA to reduce data dimensionality before proceeding with the predictive model.
 
+Download it <a href="https://drive.google.com/file/d/1dAf6f0uyVGJLgKJBIuusFNsUtUXbvc40/view?usp=drive_link">here</a>.
+
 ![Time series for 1 random state](https://drive.google.com/uc?export=view&id=1_3nYQxFsc6YUbA4D_e4ykrMIoVvEMPhW)
 
 The time series analysis for a randomly selected state showed daily variability without a defined pattern. Therefore, data was grouped by week to smooth the trend and reveal clearer patterns. This strategy facilitated a more structured understanding of the evolution of traffic accidents in each state.
