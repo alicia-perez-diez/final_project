@@ -41,11 +41,11 @@ Los gráficos de este análisis se han generado en PowerBI. Puedes ver el dashbo
 
 ![Time series for 1 random state](https://drive.google.com/uc?export=view&id=1_3nYQxFsc6YUbA4D_e4ykrMIoVvEMPhW)
 
-Serie de tiempo para 1 estado seleccionado al azar.
+El análisis de la serie de tiempo para un estado seleccionado al azar mostró una variabilidad diaria sin patrón definido. Por ello, se agruparon los datos por semana para suavizar la tendencia y revelar patrones más claros. Esta estrategia facilitó una comprensión más estructurada de la evolución de los accidentes de tráfico en cada estado.
 
 ![Features importance](https://drive.google.com/uc?export=view&id=1DIG-oZtVGaTHg0E8w5Q-qp8SMmObcASZ)
 
-Importancia de las variables. Ma8 es el promedio de las últimas 8 semanas.
+El término 'ma8' representa el promedio móvil de las últimas 8 semanas en el contexto del análisis de muertes por accidentes de tráfico. Este indicador refleja la tendencia histórica de las muertes en un período específico. Al calcular este promedio, se obtiene una visión más suavizada de la evolución de la incidencia de accidentes a lo largo del tiempo, lo que permite detectar patrones o tendencias significativas. Esta técnica facilita la identificación de cambios en la frecuencia de los accidentes y proporciona una comprensión más clara de la dinámica subyacente de los datos..
 
 
 ¡Gracias por leerme 😊!
