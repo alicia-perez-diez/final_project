@@ -1,56 +1,60 @@
-# Análisis de los accidentes de tráfico fatales en EE.UU. en 2022
+# Analysis of Fatal Traffic Accidents in the U.S. in 2022
 
-Análisis y modelo predictivo de los accidentes de tráfico fatales ocurridos en los 51 estados de EE.UU. a lo largo de 2022.
+Analysis and predictive modeling of fatal traffic accidents occurring in the 51 states of the U.S. throughout 2022.
 
-## 👋 Introducción
+## 👋 Introduction
 
-¡Hola, analista o curioso de los datos! 📈 Soy Alicia, estudiante de análisis de datos de Ironhack. En este notebook, que representa mi proyecto final, encontrarás un análisis detallado de los accidentes con al menos una muerte que tuvieron lugar en 2022 en Estados Unidos y un modelo predictivo que predice con un alto nivel de precisión el número de muertes que habrá en las 8 semanas siguientes en cada uno de los estados.
+Hello, data analyst or curious reader! 📈 I'm Alicia, a data analysis student at Ironhack. In this notebook, which represents my final project, you'll find a detailed analysis of accidents with at least one fatality that occurred in the United States in 2022 and a predictive model that accurately forecasts the number of fatalities for the next 8 weeks in each state.
 
-## Tabla de contenidos
+## Table of Contents
 
-- Metadatos
-- Estructura del análisis
-- Insights visuales
+- Metadata
+- Analysis Structure
+- Visual Insights
 
-## Metadatos
+## Metadata
 
-- Autora: Alicia Pérez.
-- Fecha de creación: 07/06/2024.
-- Última modificación: 07/06/2024.
-- Fuente de datos:
+- Author: Alicia Pérez.
+- Creation Date: 07/06/2024.
+- Last Modified: 07/06/2024.
+- Data Source::
 
-    <a href= "https://www.nhtsa.gov/file-downloads?p=nhtsa/downloads/FARS/2022/National/">United States Department of Transportation (NHTSA).</a>
+    <a href= "https://www.nhtsa.gov/file-downloads?p=nhtsa/downloads/FARS/2022/National/">United States Department of Transportation (NHTSA)</a>.
 
-## Estructura del análisis
+## Analysis Structure
 
-- Planificación del proyecto: selección de tipo de proyecto, base de datos, definición de objetivos y desarrollo del ERD.
-- Importación de datos con Python a MySQL Workbench.
-- Limpieza y formateo con MySQL.
-- Agrupación final, análisis estadístico y visualización gráfica con PowerBI.
-- Desarrollo del ABT, PCA y modelo de predicción con Python.
+- Project Planning: project type selection, database selection, goal definition, and ERD development.
+- Data Import with Python to MySQL Workbench.
+- Data Cleaning and Formatting with MySQL.
+- Final Aggregation, Statistical Analysis, and Graphical Visualization with PowerBI.
+- Development of ABT, PCA, and Predictive Model with Python.
 
-## 📊 Insights visuales data analysis
+## 📊 Visual Insights: Data Analysis
 
 ![PowerBI dashboard](https://github.com/alicia-perez-diez/final_project/blob/main/images/dashboard.gif)
 
-Puedes descargar el dashboard a través del siguiente <a href="(https://drive.google.com/uc?export=view&id=1jc92TVn6kgTVwsLcuqmUH_Tdkd_5rXG4)">enlace.</a>
+Download the dashboard via this <a href="(https://drive.google.com/uc?export=view&id=1jc92TVn6kgTVwsLcuqmUH_Tdkd_5rXG4)">link</a>.
 
-## 📊 Insights visuales modelo de predicción
+## 📊 Visual Insights: Predictive Model
+
+![Correlation heatmap](https://github.com/alicia-perez-diez/final_project/blob/main/images/correlation_heatmap.gif)
+
+This heatmap shows possible correlations between variables, highlighting significant correlations between seat position, person type, response times, and the type of accident causing fatalities. This underscores the need to perform PCA to reduce data dimensionality before proceeding with the predictive model.
 
 ![Time series for 1 random state](https://drive.google.com/uc?export=view&id=1_3nYQxFsc6YUbA4D_e4ykrMIoVvEMPhW)
 
-El análisis de la serie de tiempo para un estado seleccionado al azar mostró una variabilidad diaria sin patrón definido. Por ello, se agruparon los datos por semana para suavizar la tendencia y revelar patrones más claros. Esta estrategia facilitó una comprensión más estructurada de la evolución de los accidentes de tráfico en cada estado.
+The time series analysis for a randomly selected state showed daily variability without a defined pattern. Therefore, data was grouped by week to smooth the trend and reveal clearer patterns. This strategy facilitated a more structured understanding of the evolution of traffic accidents in each state.
 
 ![Features importance](https://drive.google.com/uc?export=view&id=1DIG-oZtVGaTHg0E8w5Q-qp8SMmObcASZ)
 
-El término 'ma8' representa el promedio móvil de las últimas 8 semanas en el contexto del análisis de muertes por accidentes de tráfico. Este indicador refleja la tendencia histórica de las muertes en un período específico. Al calcular este promedio, se obtiene una visión más suavizada de la evolución de la incidencia de accidentes a lo largo del tiempo, lo que permite detectar patrones o tendencias significativas. Esta técnica facilita la identificación de cambios en la frecuencia de los accidentes y proporciona una comprensión más clara de la dinámica subyacente de los datos.
+The term 'ma8' represents the 8-week moving average in the context of analyzing traffic accident fatalities. This indicator reflects the historical trend of fatalities over a specific period. By calculating this average, a smoother view of the trend in accident incidence over time is obtained, allowing for the detection of significant patterns or trends. This technique helps identify changes in accident frequency and provides a clearer understanding of the underlying data dynamics.
 
 ![Fatalities forecast](https://drive.google.com/uc?export=view&id=1vZsqLiPsbykqSfg6T_Qj5F2Rz0xN53Z4)
 
-El gráfico de predicción muestra una evolución clara de las muertes por accidentes de tráfico en 2022, destacando picos significativos de hasta 939 y 934 muertes por semana en las últimas semanas del año. Estos picos indican periodos críticos de alto riesgo. Para las próximas 8 semanas, el modelo predice cifras de 871, 844, 849, 850, 845, 849, 817 y 848 muertes por semana, revelando que serán unas semanas críticas que requerirán atención especial.
+The prediction graph shows a clear trend in traffic accident fatalities in 2022, highlighting significant peaks of up to 939 and 934 fatalities per week in the last weeks of the year. These peaks indicate critical periods of high risk. For the next 8 weeks, the model predicts figures of 871, 844, 849, 850, 845, 849, 817, and 848 fatalities per week, indicating critical weeks that will require special attention.
 
-Encuentra información detallada sobre el proyecto en el siguiente <a href="https://docs.google.com/presentation/d/1AKr2wNU-6pMedlli2poKJx5BKxoEVtAbk5RP1vD4Xw8/edit?usp=sharing">enlace.</a>
+Detailed information about the project at the following <a href="https://docs.google.com/presentation/d/1AKr2wNU-6pMedlli2poKJx5BKxoEVtAbk5RP1vD4Xw8/edit?usp=sharing">link</a>.
 
-Y el enlace al ERD <a href="https://docs.google.com/presentation/d/1WEghHFbpD1ldkTyGZPo3oXcFeZM19uF5/edit?usp=sharing">enlace.</a>
+Link to the ERD <a href="https://docs.google.com/presentation/d/1WEghHFbpD1ldkTyGZPo3oXcFeZM19uF5/edit?usp=sharing">here</a>.
 
-¡Gracias por leerme 😊!
+Thanks for reading 😊!
