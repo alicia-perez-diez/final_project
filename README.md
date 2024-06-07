@@ -31,9 +31,9 @@ Análisis y modelo predictivo de los accidentes de tráfico fatales ocurridos en
 
 ## 📊 Insights visuales data analysis
 
-![PowerBI dashboard](https://drive.google.com/uc?export=view&id=1jc92TVn6kgTVwsLcuqmUH_Tdkd_5rXG4)
+![PowerBI dashboard](https://drive.google.com/uc?export=view&id=1BetG4-ghaSda0yr8m8mfxRe_P-ungJ2I)
 
-Los gráficos de este análisis se han generado en PowerBI. Puedes ver el dashboard a través del siguiente <a href="https://www.figma.com/file/gOvrnYqe9p5d0xPGVYHeHR/ny_project_ERD?type=design&mode=design">enlace.</a>
+Puedes descargar el dashboard a través del siguiente <a href="(https://drive.google.com/uc?export=view&id=1jc92TVn6kgTVwsLcuqmUH_Tdkd_5rXG4)">enlace.</a>
 
 ## 📊 Insights visuales modelo de predicción
 
