@@ -17,9 +17,7 @@ Hello, data analyst or curious reader! 📈 I'm Alicia, a data analysis student 
 - Author: Alicia Pérez.
 - Creation Date: 07/06/2024.
 - Last Modified: 07/06/2024.
-- Data Source::
-
-    <a href= "https://www.nhtsa.gov/file-downloads?p=nhtsa/downloads/FARS/2022/National/">United States Department of Transportation (NHTSA)</a>.
+- Data Source: <a href= "https://www.nhtsa.gov/file-downloads?p=nhtsa/downloads/FARS/2022/National/">United States Department of Transportation (NHTSA)</a>.
 
 ## Analysis Structure
 
@@ -33,7 +31,7 @@ Hello, data analyst or curious reader! 📈 I'm Alicia, a data analysis student 
 
 ![PowerBI dashboard](https://github.com/alicia-perez-diez/final_project/blob/main/images/dashboard.gif)
 
-Download the dashboard via this <a href="(https://drive.google.com/uc?export=view&id=1jc92TVn6kgTVwsLcuqmUH_Tdkd_5rXG4)">link</a>.
+Download the PowerBI dashboard via this <a href="(https://drive.google.com/file/d/1tNa_nt9-yHBv2XsX27upeD5dxSDrV-nV/view?usp=drive_link)">link</a>.
 
 ## 📊 Visual Insights: Predictive Model
 
